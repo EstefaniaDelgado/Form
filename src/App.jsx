@@ -11,9 +11,9 @@ import "react-toastify/dist/ReactToastify.css"
 function App() {
 
   const[infoSurvey, setInfoSurvey]=useState([]);
-  // console.log("%cInfoDB", "color:yellow", infoSurvey)
+  
   const[currentId, setCurrentId]=useState("");
-  //console.log(currentId)
+
   
 //////////////////////////////////////////////////
   //send info to the db in firebase
@@ -101,7 +101,7 @@ const deleteRegister = async(id)=>{
     <div className="container p-4">
       <div className="">
        <Routes>
-     <Route exact path='/' element={<Form sendInfoSurvey={sendInfoSurvey} currentId={currentId} />}/>
+     <Route exact path='/' element={<Form sendInfoSurvey={sendInfoSurvey} currentId={currentId} infoSurvey={infoSurvey} />}/>
      <Route exact path='/info' element={<SurveyInfo infoSurvey={infoSurvey} deleteRegister={deleteRegister} getInfoById={getInfoById} />}/>
       </Routes> 
       </div>

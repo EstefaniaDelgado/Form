@@ -1,12 +1,11 @@
 // regular expression for name
-const expRegular =/^[a-zA-Z]{2,50}$/
 const expEmail =/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,}$/
 
 
 
-export const validation=(currentInput,inputs)=> {
+export const validation=(currentInput,inputs, )=> {
     let errors = {};
-
+   
     if(currentInput === "full_name" && !inputs.full_name) errors.full_name = "*Campo requerido";
 
    if( currentInput ==="email" && !inputs.email) errors.email = "*Campo requerido";

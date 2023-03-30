@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import swal from 'sweetalert';
 import { db } from '../data/firebase.js';
 
-function Form({ sendInfoSurvey, currentId }) {
+function Form({ sendInfoSurvey, infoSurvey, currentId }) {
  
 
   //redirect to answers
@@ -22,14 +22,25 @@ function Form({ sendInfoSurvey, currentId }) {
     country_of_origin: '',
     terms_and_conditions: false,
   });
-  console.log(inputs);
+
 
   const [error, setError] = useState({});
   const [currentInput, setCurrentInput] = useState('');
+  const [disable, setDisabled] = useState(false)
+
 
   useEffect(() => {
     setData(info);
-  }, []);
+    const fullName = inputs.full_name; // Utilizar una referencia para obtener el valor actual de "inputs.full_name"
+     if(infoSurvey.some((element) => element.full_name === fullName)){
+        setDisabled(true)
+     }else{
+        setDisabled(false)
+     } 
+ 
+  }, [inputs.full_name, infoSurvey]);
+  console.log(inputs.full_name)
+  console.log(disable)
 
   const getInfoById = async(currentId)=>{
     const doc = await db.collection("survey").doc(currentId).get()
@@ -125,6 +136,7 @@ function Form({ sendInfoSurvey, currentId }) {
                         ele.type === 'submit'
                           ? true &&
                             (error.full_name ||
+                               disable || 
                               error.email ||
                               error.birth_date ||
                               error.terms_and_conditions ||
@@ -161,6 +173,7 @@ function Form({ sendInfoSurvey, currentId }) {
                       {error.full_name}
                     </p>
                   )}
+                  {ele.name === 'full_name' && disable && <p>Ese nombre ya existe</p> }
                   {ele.name === 'email' && error.email && (
                     <p style={{ fontSize: 'medium', color: 'red' }}>
                       {error.email}
