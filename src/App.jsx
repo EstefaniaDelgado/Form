@@ -40,14 +40,6 @@ setInfoSurvey(dataFb)
 
 };
 
-/* 
- //show information in the form
- const getInfoById= async(id)=>{
-  const dataWithId=[]
-  const data = await db.collection("survey").doc(id).get()
-  dataWithId.push({...data.data(),id:id})
-  setCurrentId(dataWithId[0].id)
-}; */
 
 //Delete register by Id
 const deleteRegister = async(id)=>{
