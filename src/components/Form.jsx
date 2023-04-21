@@ -4,11 +4,10 @@ import { validation } from '../functionValidation.js';
 import ClipLoader from 'react-spinners/ClipLoader';
 import { useNavigate } from 'react-router-dom';
 import swal from 'sweetalert';
-import { db } from '../data/firebase.js';
 
-function Form({ sendInfoSurvey, infoSurvey, currentId }) {
-  
-  console.log(currentId)
+
+
+function Form({ sendInfoSurvey, infoSurvey }) {
 
   //redirect to answers
   const history = useNavigate();
@@ -23,19 +22,18 @@ function Form({ sendInfoSurvey, infoSurvey, currentId }) {
     country_of_origin: '',
     terms_and_conditions: false,
   });
-  console.log(inputs.full_name)
-
-
+  
   const [error, setError] = useState({});
+
   const [currentInput, setCurrentInput] = useState('');
+
   const [disable, setDisabled] = useState(false)
 
 
   useEffect(() => {
     setData(info);
-
-    const fullName = inputs.full_name; // Utilizar una referencia para obtener el valor actual de "inputs.full_name"
-
+    // This is a reference to get the current value of "inputs.full_name"
+    const fullName = inputs.full_name; 
     if(infoSurvey.some((element) => element.full_name === fullName)){
        setTimeout(()=>{
         setDisabled(true)
@@ -44,53 +42,7 @@ function Form({ sendInfoSurvey, infoSurvey, currentId }) {
       setDisabled(false)
     }
   }, [inputs.full_name, infoSurvey]);
- 
-
- /*  if(infoSurvey.some((element) => element.full_name === fullName)){
-    setDisabled(true)
- }else{
-    setDisabled(false)
- }  */
-
-  /* const getInfoById = async(currentId)=>{
-    console.log("llamando en el momento adeacuado")
-    const doc = await db.collection("survey").doc(currentId).get()
-    setInputs({...doc.data()})
-  }  */
-
-  const getInfoById = async (currentId) => {
-    try {
-      const doc = await db.collection("survey").doc(currentId).get();
-      if (doc.exists) {
-        console.log("Datos recuperados: ", doc.data()); // Agrega esta línea para verificar que se están recuperando los datos de Firebase
-        setInputs(prevState => ({
-          ...prevState,
-          full_name: doc.data().full_name,
-          email: doc.data().email,
-          birth_date: doc.data().birth_date,
-          country_of_origin: doc.data().country_of_origin,
-          terms_and_conditions: doc.data().terms_and_conditions,
-        }));
-      } else {
-        console.log("El documento no existe");
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  }
   
-
-
-   useEffect(()=>{
-   if(currentId===""){
-    setInputs({...inputs})
-   }else{
-   getInfoById(currentId)
-   }
-  },[currentId])
-
-  
- 
 
   //Handler Inputs
   const handlerChange = (e) => {
@@ -142,10 +94,9 @@ function Form({ sendInfoSurvey, infoSurvey, currentId }) {
   };
 
   return (
-    // SURVEY FORM
-
+    // FORM
     <>
-      <h1 style={{ marginBottom: '30px' }}>Google Form</h1>
+      <h1 style={{ marginBottom: '30px' }}>Formulario <i className="material-icons">face</i></h1>
       {data.items ? (
         data.items.map((ele, index) => {
           return (

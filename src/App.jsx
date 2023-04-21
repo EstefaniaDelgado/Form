@@ -12,32 +12,21 @@ function App() {
 
   const[infoSurvey, setInfoSurvey]=useState([]);
   
-  const[currentId, setCurrentId]=useState("");
 
-  
-//////////////////////////////////////////////////
   //send info to the db in firebase
   const sendInfoSurvey = async(infoForm)=>{
     try {
-      if(currentId === ""){
         await db.collection("survey").doc().set(infoForm)
         toast("Nuevo registro agregado",{
           type:"success",
           autoClose:1000,
         });
-      }else{
-        await db.collection("survey").doc(currentId).update(infoForm);
-        toast("Resgistro Actualizado exitosamente",{
-          type:"info",
-          autoClose:1000,
-        })
-        setCurrentId("");
-      }
+      
     } catch (error) {
       console.log(error)
     }    
   };
- /////////////////////////////////
+ 
   
  //To do a request to fb and show info in a new path
    const getAndShowAnswers = async()=>{
@@ -50,26 +39,10 @@ setInfoSurvey(dataFb)
 }); 
 
 };
-console.log(infoSurvey)
 
-
-//const contactos = collection(db, "contactos");
-
-/* export const getContact = async (_req, res) => {
-  try {
-    const datos = await getDocs(contactos);
-    const { docs } = datos;
-    const data = docs.map((doc) => ({ id: doc.id, datos: doc.data() }));
-    // return success({ res, data });
-    res.render("index", { data });
-  } catch (error) {
-    return failure({ res, msg: error });
-  }
-}; */
-
-
+/* 
  //show information in the form
-/*  const getInfoById= async(id)=>{
+ const getInfoById= async(id)=>{
   const dataWithId=[]
   const data = await db.collection("survey").doc(id).get()
   dataWithId.push({...data.data(),id:id})
@@ -95,13 +68,12 @@ const deleteRegister = async(id)=>{
  },[]);
 
  
-
   return (
     <div className="container p-4">
       <div className="">
        <Routes>
-     <Route exact path='/' element={<Form sendInfoSurvey={sendInfoSurvey} currentId={currentId} infoSurvey={infoSurvey} />}/>
-     <Route exact path='/info' element={<SurveyInfo infoSurvey={infoSurvey} deleteRegister={deleteRegister} /* getInfoById={getInfoById} */ />}/>
+     <Route exact path='/' element={<Form sendInfoSurvey={sendInfoSurvey}  infoSurvey={infoSurvey} />}/>
+     <Route exact path='/info' element={<SurveyInfo infoSurvey={infoSurvey} deleteRegister={deleteRegister}/>}/>
       </Routes> 
       </div>
       <ToastContainer/>

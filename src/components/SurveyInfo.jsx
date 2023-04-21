@@ -1,7 +1,8 @@
 import { Link } from 'react-router-dom';
+import ClipLoader from 'react-spinners/ClipLoader';
 
-function SurveyInfo({ infoSurvey, deleteRegister, getInfoById }) {
-  console.log(infoSurvey)
+function SurveyInfo({ infoSurvey, deleteRegister}) {
+   
   return (
     <>
       <div>
@@ -13,7 +14,6 @@ function SurveyInfo({ infoSurvey, deleteRegister, getInfoById }) {
                 <th className="text-center bg-primary ">Email</th>
                 <th className="text-center bg-primary">Birthday</th>
                 <th className="text-center bg-primary">Country</th>
-               {/*  <th className="text-center bg-primary">Actualizar</th> */}
                 <th className="text-center bg-primary">Eliminar</th>
               </tr>
             </thead>
@@ -25,19 +25,9 @@ function SurveyInfo({ infoSurvey, deleteRegister, getInfoById }) {
         <td className="text-center px-4">{user.email}</td>
         <td className="text-center">{user.birth_date}</td>
         <td className="text-center px-4">
-          {user.country_of_origin}
+          {user.country_of_origin[0].toUpperCase()+ user.country_of_origin.slice(1)}
         </td>
-       {/*  <td className="text-center px-4">
-          <Link to={'/'}>
-            <i
-              className="material-icons"
-              style={{ cursor: 'pointer' }}
-              onClick={() => getInfoById(user.id)}
-            >
-              create
-            </i>
-          </Link>
-        </td> */}
+
         <td className="text-center px-4">
           <i
             className="material-icons"
@@ -47,13 +37,14 @@ function SurveyInfo({ infoSurvey, deleteRegister, getInfoById }) {
             close
           </i>
         </td>
+
       </tr>
     </tbody>
   );
 })}
           </table>
         ) : (
-          <h1>Cargando</h1>
+         <ClipLoader/>
         )}
       </div>
       <br />
