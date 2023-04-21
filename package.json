@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "start":"index",
+    "start":"index-a4eb148e.js",
     "build": "vite build",
     "preview": "vite preview"
   },
