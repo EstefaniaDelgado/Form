@@ -40,7 +40,6 @@ function App() {
  /////////////////////////////////
   
  //To do a request to fb and show info in a new path
-   
    const getAndShowAnswers = async()=>{
    db.collection("survey").onSnapshot((querySnapShot)=>{
   const dataFb = [];
@@ -70,12 +69,12 @@ console.log(infoSurvey)
 
 
  //show information in the form
- const getInfoById= async(id)=>{
+/*  const getInfoById= async(id)=>{
   const dataWithId=[]
   const data = await db.collection("survey").doc(id).get()
   dataWithId.push({...data.data(),id:id})
   setCurrentId(dataWithId[0].id)
-};
+}; */
 
 //Delete register by Id
 const deleteRegister = async(id)=>{
@@ -102,7 +101,7 @@ const deleteRegister = async(id)=>{
       <div className="">
        <Routes>
      <Route exact path='/' element={<Form sendInfoSurvey={sendInfoSurvey} currentId={currentId} infoSurvey={infoSurvey} />}/>
-     <Route exact path='/info' element={<SurveyInfo infoSurvey={infoSurvey} deleteRegister={deleteRegister} getInfoById={getInfoById} />}/>
+     <Route exact path='/info' element={<SurveyInfo infoSurvey={infoSurvey} deleteRegister={deleteRegister} /* getInfoById={getInfoById} */ />}/>
       </Routes> 
       </div>
       <ToastContainer/>

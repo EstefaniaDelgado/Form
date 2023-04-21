@@ -7,7 +7,8 @@ import swal from 'sweetalert';
 import { db } from '../data/firebase.js';
 
 function Form({ sendInfoSurvey, infoSurvey, currentId }) {
- 
+  
+  console.log(currentId)
 
   //redirect to answers
   const history = useNavigate();
@@ -22,6 +23,7 @@ function Form({ sendInfoSurvey, infoSurvey, currentId }) {
     country_of_origin: '',
     terms_and_conditions: false,
   });
+  console.log(inputs.full_name)
 
 
   const [error, setError] = useState({});
@@ -31,21 +33,53 @@ function Form({ sendInfoSurvey, infoSurvey, currentId }) {
 
   useEffect(() => {
     setData(info);
-    const fullName = inputs.full_name; // Utilizar una referencia para obtener el valor actual de "inputs.full_name"
-     if(infoSurvey.some((element) => element.full_name === fullName)){
-        setDisabled(true)
-     }else{
-        setDisabled(false)
-     } 
- 
-  }, [inputs.full_name, infoSurvey]);
-  console.log(inputs.full_name)
-  console.log(disable)
 
-  const getInfoById = async(currentId)=>{
+    const fullName = inputs.full_name; // Utilizar una referencia para obtener el valor actual de "inputs.full_name"
+
+    if(infoSurvey.some((element) => element.full_name === fullName)){
+       setTimeout(()=>{
+        setDisabled(true)
+      }, 800)
+    }else{
+      setDisabled(false)
+    }
+  }, [inputs.full_name, infoSurvey]);
+ 
+
+ /*  if(infoSurvey.some((element) => element.full_name === fullName)){
+    setDisabled(true)
+ }else{
+    setDisabled(false)
+ }  */
+
+  /* const getInfoById = async(currentId)=>{
+    console.log("llamando en el momento adeacuado")
     const doc = await db.collection("survey").doc(currentId).get()
     setInputs({...doc.data()})
-  } 
+  }  */
+
+  const getInfoById = async (currentId) => {
+    try {
+      const doc = await db.collection("survey").doc(currentId).get();
+      if (doc.exists) {
+        console.log("Datos recuperados: ", doc.data()); // Agrega esta línea para verificar que se están recuperando los datos de Firebase
+        setInputs(prevState => ({
+          ...prevState,
+          full_name: doc.data().full_name,
+          email: doc.data().email,
+          birth_date: doc.data().birth_date,
+          country_of_origin: doc.data().country_of_origin,
+          terms_and_conditions: doc.data().terms_and_conditions,
+        }));
+      } else {
+        console.log("El documento no existe");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  
+
 
    useEffect(()=>{
    if(currentId===""){
@@ -54,6 +88,8 @@ function Form({ sendInfoSurvey, infoSurvey, currentId }) {
    getInfoById(currentId)
    }
   },[currentId])
+
+  
  
 
   //Handler Inputs

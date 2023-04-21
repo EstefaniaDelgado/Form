@@ -13,7 +13,7 @@ function SurveyInfo({ infoSurvey, deleteRegister, getInfoById }) {
                 <th className="text-center bg-primary ">Email</th>
                 <th className="text-center bg-primary">Birthday</th>
                 <th className="text-center bg-primary">Country</th>
-                <th className="text-center bg-primary">Actualizar</th>
+               {/*  <th className="text-center bg-primary">Actualizar</th> */}
                 <th className="text-center bg-primary">Eliminar</th>
               </tr>
             </thead>
@@ -27,7 +27,7 @@ function SurveyInfo({ infoSurvey, deleteRegister, getInfoById }) {
         <td className="text-center px-4">
           {user.country_of_origin}
         </td>
-        <td className="text-center px-4">
+       {/*  <td className="text-center px-4">
           <Link to={'/'}>
             <i
               className="material-icons"
@@ -37,7 +37,7 @@ function SurveyInfo({ infoSurvey, deleteRegister, getInfoById }) {
               create
             </i>
           </Link>
-        </td>
+        </td> */}
         <td className="text-center px-4">
           <i
             className="material-icons"
