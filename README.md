@@ -26,7 +26,7 @@ They are the dependencies used in the project with the command npm i:
 - Data Base --> Firebase <br/>
 <br>
 
-We need to connect the app with firebase, so is necessary install it, through the command npm i fiebase and add some configurations that you can find in the platform of firebase when you create an account and add a new project which you have to copy and page in a new add in the project that you may call it like firebase.js.
+We need to connect the app with firebase, so is necessary install it, through the command npm i fiebase and add some configurations that you can find in the platform of firebase when you create an account and add a new project which you have to copy and page in a new file in the project that you may call it like firebase.js.
 
 ENVIRONMENT VARIABLES 🔑
 <hr>
