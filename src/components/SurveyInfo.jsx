@@ -21,7 +21,7 @@ function SurveyInfo({ infoSurvey, deleteRegister}) {
   return (
     <tbody key={user.id}>
       <tr>
-        <td className="text-center px-4">{user.full_name}</td>
+        <td className="text-center px-4">{user.full_name[0].toUpperCase()+ user.full_name.slice(1)}</td>
         <td className="text-center px-4">{user.email}</td>
         <td className="text-center">{user.birth_date}</td>
         <td className="text-center px-4">

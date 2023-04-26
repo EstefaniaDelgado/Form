@@ -23,25 +23,39 @@ function Form({ sendInfoSurvey, infoSurvey }) {
     terms_and_conditions: false,
   });
   
+  
   const [error, setError] = useState({});
 
   const [currentInput, setCurrentInput] = useState('');
-
-  const [disable, setDisabled] = useState(false)
+  
+  // disable if the name already exists
+  const [disable, setDisabled] = useState(false);
+  //disableEmail if the email already exists
+  const[disableEmail, setDisableEmail] = useState(false)
 
 
   useEffect(() => {
     setData(info);
     // This is a reference to get the current value of "inputs.full_name"
-    const fullName = inputs.full_name; 
-    if(infoSurvey.some((element) => element.full_name === fullName)){
+    const fullName = inputs.full_name;  
+    const email = inputs.email;
+
+    if(infoSurvey.some((element) => element.full_name.toLowerCase() === fullName.toLowerCase())){
        setTimeout(()=>{
         setDisabled(true)
       }, 800)
     }else{
       setDisabled(false)
     }
-  }, [inputs.full_name, infoSurvey]);
+
+    if(infoSurvey.some((element) => element.email === email)){
+      setTimeout(()=>{
+       setDisableEmail(true)
+     }, 800)
+   }else{
+     setDisableEmail(false)
+   }
+  }, [inputs.full_name, inputs.email, infoSurvey]);
   
 
   //Handler Inputs
@@ -124,6 +138,7 @@ function Form({ sendInfoSurvey, infoSurvey }) {
                           ? true &&
                             (error.full_name ||
                                disable || 
+                               disableEmail ||
                               error.email ||
                               error.birth_date ||
                               error.terms_and_conditions ||
@@ -161,6 +176,7 @@ function Form({ sendInfoSurvey, infoSurvey }) {
                     </p>
                   )}
                   {ele.name === 'full_name' && disable && <p>Ese nombre ya existe</p> }
+                  {ele.name === "email" && disableEmail && <p>Este correo ya se encuentra registrado</p> }
                   {ele.name === 'email' && error.email && (
                     <p style={{ fontSize: 'medium', color: 'red' }}>
                       {error.email}
